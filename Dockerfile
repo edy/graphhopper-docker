@@ -5,7 +5,7 @@ WORKDIR /data
 RUN mkdir -p /data && \
 	mkdir -p /graphhopper && \
 	cd /graphhopper && \
-	wget https://graphhopper.com/public/releases/graphhopper-web-0.7.0-bin.zip && \
+	wget https://graphhopper.com/public/releases/graphhopper-web-0.6.0-bin.zip && \
 	unzip *.zip && \
 	rm *.zip
 
