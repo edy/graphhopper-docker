@@ -2,12 +2,14 @@ FROM openjdk:8-jdk
 
 WORKDIR /graphhopper
 
-RUN mkdir -p /data && \
-	mkdir -p /graphhopper && \
-	cd /graphhopper && \
-	git clone https://github.com/graphhopper/graphhopper.git . && \
-	git checkout c8c5d5c4841ff9bcd2f9fa9d97ec4888b13953d4 && \
-	rm -rf .git
+RUN mkdir -p /data \
+ && mkdir -p /graphhopper \
+ && wget -qO - https://github.com/graphhopper/graphhopper/archive/0.8.2.tar.gz |tar xfz - --strip-components=1 -C /graphhopper \
+ && cd /graphhopper \
+ && apt-get update \
+ && apt-get install -y maven \
+ && mvn clean install \
+ && apt-get purge -y maven
 
 COPY assets/config.properties /graphhopper/
 COPY assets/start.sh /graphhopper/
